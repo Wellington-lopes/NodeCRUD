@@ -1,13 +1,13 @@
 const express = require('express')
-//passa uma informação para constante express
+//passa uma informação(biblioteca express) para constante express
 const app = express()
 // a const app recebe uma função da biblioteca express com seus parametros
 const port = 3005
-//porta para ser usada no localhost
+//porta para ser usada no localhost pelo node
 app.use(express.json());
-//cria uma aplicação express
+//cria uma aplicação express que aceita informações json - podendo inserir informações
 
-//get users - cria o acesso aos usuários
+//get users - exibe/retorna/cria o acesso aos usuários, passando a rota /users
 app.get('/users', (req, response) => {
   response.json(bd);
 })
@@ -17,13 +17,14 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-//pega as informações do usuário
+//pega as informações de 1 usuário 
 app.get('/users/:id', (req, response) => {
 
   //pegar o id da requisição
   const idUser = req.params.id;
   
-  //encontrar o usuário correspondente no bd
+  //encontrar o usuário correspondente no bd - toda vez que vc quiser algo menor que a lista(array) original usar o filter
+  // se usar map ele iria retorna todos 
   const user = bd.filter((usuario) => usuario.id === idUser);
 
   //responder a requisição com as info do usuário
@@ -46,7 +47,7 @@ app.post("/users", (request, response) =>{
  //adicionar esse novo objeto no banco
   bd.push(newUser);
 
- //responder a requisição com o banco completo
+ //retorna a requisição com o banco atualizado/completo
   response.json(bd); 
 
 })
@@ -64,7 +65,7 @@ app.delete("/users/:id", (request, response) => {
 
   //responder com o meu banco atualizado
   response.json(bd);
-})
+}) 
 
 //Atualiza as informaçãos no banco de dados
 app.patch("/users/:id", (request, response) => {
@@ -89,6 +90,7 @@ bd = bd.map((usuario) => {
 response.json(bd);
 })
 
+//banco de dados
 let bd = [
   {
     id: "1",
