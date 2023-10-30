@@ -1,5 +1,6 @@
 const express = require('express')
 //passa uma informação(biblioteca express) para constante express
+let userRepository = require('./repositories/users')
 const app = express()
 // a const app recebe uma função da biblioteca express com seus parametros
 const port = 3005
@@ -9,7 +10,7 @@ app.use(express.json());
 
 //get users - exibe/retorna/cria o acesso aos usuários, passando a rota /users
 app.get('/users', (req, response) => {
-  response.json(bd);
+  response.json(userRepository.getUsers());
 })
 
 // cria o acesso ao localhost retornando um servidor node
@@ -25,10 +26,10 @@ app.get('/users/:id', (req, response) => {
   
   //encontrar o usuário correspondente no bd - toda vez que vc quiser algo menor que a lista(array) original usar o filter
   // se usar map ele iria retorna todos 
-  const user = bd.filter((usuario) => usuario.id === idUser);
+  
 
   //responder a requisição com as info do usuário
-  response.json(user);
+  response.json(userRepository.getUsersById(idUser));
 
 })
 
@@ -90,15 +91,5 @@ bd = bd.map((usuario) => {
 response.json(bd);
 })
 
-//banco de dados
-let bd = [
-  {
-    id: "1",
-    name: "Well",
-  },
-  {
-    id: "2",
-    name: "Ray",
-  }
-]
+
 
