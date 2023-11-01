@@ -11,5 +11,5 @@ let bd = [
   ]
 
 module.exports = {
-    bd
+  bd
 }
